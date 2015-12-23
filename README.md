@@ -1,6 +1,6 @@
 # Python Simple Progress Bar
 
-A simple, easy-to-use progress bar for your time consuming operations.
+A simple, easy-to-use progress bar for your time consuming operations in Python.
 
 ## Usage
 ````
@@ -23,3 +23,6 @@ You set the end value and update it at each iteration with the new value. Please
 You can set the length of the bar (hashes) by setting `bar_length`. Default: 20.
 #### Info Text
 You can set the informative text before the bar by setting `text`. Default: `"Progress"`.
+
+## Compatibility
+Compatible with Python 2 and 3.
