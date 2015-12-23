@@ -5,7 +5,6 @@ A simple, easy-to-use progress bar for your time consuming operations.
 ## Usage
 ````
 bar = ProgressBar(100)
-bar.start()
 for i in range(0, 100):
     time.sleep(1)
     bar.update(i)

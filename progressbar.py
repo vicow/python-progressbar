@@ -8,7 +8,6 @@ class ProgressBar:
 
     Example code:
     >>> bar = ProgressBar(end_value=100, text="Iteration")
-    >>> bar.start()
     >>> for i in range(0, 100):
     >>>    time.sleep(1)
     >>>    bar.update(i)
@@ -29,10 +28,7 @@ class ProgressBar:
         else:
             self.text = "Progress"
 
-    def start(self):
-        """
-        Start the progress bar.
-        """
+        # Start displaying the bar
         sys.stdout.write("\r{0}: [{1}] {2}%".format(self.text,
                                                     ' ' * self.bar_length,
                                                     self.current))
@@ -59,7 +55,6 @@ class ProgressBar:
 
 def progress_bar_test(end_value, text, bar_length=20):
     bar = ProgressBar(end_value=end_value, text=text, bar_length=bar_length)
-    bar.start()
     for i in range(0, end_value):
         time.sleep(1)
         bar.update(i)
