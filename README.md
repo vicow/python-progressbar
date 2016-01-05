@@ -1,10 +1,11 @@
 # Python Simple Progress Bar
 
-A simple, easy-to-use progress bar for your time consuming operations in Python.
+A simple, easy-to-use progress bar for your time-consuming operations in Python.
 
 ## Usage
 ````
 bar = ProgressBar(100)
+bar.start()
 for i in range(0, 100):
     time.sleep(1)
     bar.update(i)
@@ -17,41 +18,61 @@ Progress: [##############      ] 70%
 
 ## Documentation
 ### Basics
-You set the end value and update it at each iteration with the new value. Please note that it assumes values from 0 to `end_value`-1.
+You set the end value and update it at each iteration with the new value. Note that it assumes values from 0 to `end_value-1`.
 
 ````
-end_value = 63773
+end_value = 42
 bar = ProgressBar(end_value)
+bar.start()
 for i in range(0, end_value):
-    time.sleep(1)
+    # Do something cool but long
     bar.update(i)
 ````
 
-### Customization
-#### Bar length
-You can set the length of the bar (hashes) by setting `bar_length`. **Default:** 20.
+### Options
+
+#### Counts
+You can display the current state of count if you want to see more than just the percentage by enabling `count`. **Default:** `False`.
 
 ````
-bar = ProgressBar(100, bar_length=10)
-for i in range(0, 100):
-    time.sleep(1)
+bar = ProgressBar(74, count=True)
+bar.start()
+for i in range(0, 74):
+    time.sleep(1) 
     bar.update(i)
 ````
 ````
-Progress: [#######   ] 70%
+Progress: [##############      ] 70% (52/74)
 ````
+
 
 #### Info Text
 You can set the informative text before the bar by setting `text`. **Default:** `"Progress"`.
 
 ````
 bar = ProgressBar(100, text="Iterations")
+bar.start()
 for i in range(0, 100):
     time.sleep(1)
     bar.update(i)
 ````
 ````
 Iterations: [##############      ] 70%
+````
+
+
+#### Bar length
+You can set the length of the bar (hashes) by setting `bar_length`. **Default:** 20.
+
+````
+bar = ProgressBar(100, bar_length=10)
+bar.start()
+for i in range(0, 100):
+    time.sleep(1)
+    bar.update(i)
+````
+````
+Progress: [#######   ] 70%
 ````
 
 ## Compatibility

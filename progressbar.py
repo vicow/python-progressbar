@@ -14,6 +14,7 @@ class ProgressBar:
     >>>    time.sleep(1)
     >>>    bar.update(i)
     """
+
     def __init__(self, end_value=100, text=None, count=False, bar_length=20):
         """
         Initialize the progress bar.
@@ -34,21 +35,29 @@ class ProgressBar:
             self.text = "Progress"
 
     def _reset(self):
+        """
+        Reset the bar.
+        """
         self.current = 0
         self.start_time = 0
 
     def start(self):
         """
-        Start the progress bar.
+        Start the timer and displaying the bar.
         """
         self._reset()
-        # Init starting time
+        # Initialize starting time
         self.start_time = int(time.time())
         # Start displaying the bar
         if self.count:
-            sys.stdout.write("\r{0}: [{1}] {2}% (0/{3})".format(self.text, ' ' * self.bar_length, self.current, self.end_value))
+            sys.stdout.write("\r{0}: [{1}] {2}% (0/{3})".format(self.text,
+                                                                ' ' * self.bar_length,
+                                                                self.current,
+                                                                self.end_value))
         else:
-            sys.stdout.write("\r{0}: [{1}] {2}%".format(self.text, ' ' * self.bar_length, self.current))
+            sys.stdout.write("\r{0}: [{1}] {2}%".format(self.text,
+                                                        ' ' * self.bar_length,
+                                                        self.current))
         sys.stdout.flush()
 
     def update(self, new_val):
@@ -78,7 +87,7 @@ class ProgressBar:
                 sys.stdout.write(" Elapsed time: %s\n" % elapsed_time)
 
 
-def progress_bar_test(end_value, text, bar_length=20, count=False):
+def progress_bar_test(end_value, text, bar_length, count):
     bar = ProgressBar(end_value=end_value, text=text, count=count, bar_length=bar_length)
     bar.start()
     for i in range(0, end_value):
@@ -87,4 +96,4 @@ def progress_bar_test(end_value, text, bar_length=20, count=False):
 
 
 if __name__ == '__main__':
-    progress_bar_test(5, 'Iterations', count=True)
+    progress_bar_test(100, text='Iterations', count=True, bar_length=20)
