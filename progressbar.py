@@ -41,26 +41,49 @@ class ProgressBar:
         self.current = 0
         self.start_time = 0
 
-    def start(self):
+    @staticmethod
+    def _print(text):
+        """
+        Print text to the console.
+
+        :param text: Text to be printed
+        """
+        sys.stdout.write(text)
+        sys.stdout.flush()
+
+    def start(self, status_text=None):
         """
         Start the timer and displaying the bar.
+
+        :param status_text: Optional status text to be displayed after the bar
         """
         self._reset()
         # Initialize starting time
         self.start_time = int(time.time())
         # Start displaying the bar
         if self.count:
-            sys.stdout.write("\r{0} ({4:>{5}}/{3}): [{1}] {2}%".format(self.text,
+            display_text = "\r{0} ({4:>{5}}/{3}): [{1}] {2}%".format(self.text,
                                                                        ' ' * self.bar_length,
                                                                        0,
                                                                        self.end_value,
                                                                        0,
-                                                                       len(str(self.end_value))))
+                                                                       len(str(self.end_value)))
         else:
-            sys.stdout.write("\r{0}: [{1}] {2}%".format(self.text,
+            display_text = "\r{0}: [{1}] {2}%".format(self.text,
                                                         ' ' * self.bar_length,
-                                                        self.current))
-        sys.stdout.flush()
+                                                        self.current)
+        if status_text is not None:
+            display_text += " %s" % status_text
+
+        self._print(display_text)
+
+    def current_status(self, status_text):
+        """
+        Display the current status as a text after the bar
+
+        :param status_text: Status text to be displayed
+        """
+        self._print(status_text)
 
     def update(self, new_val):
         """
@@ -74,20 +97,21 @@ class ProgressBar:
             hashes = '#' * int(round(percent * self.bar_length))
             spaces = ' ' * (self.bar_length - len(hashes))
             if self.count:
-                sys.stdout.write("\r{0} ({4:>{5}}/{3}): [{1}] {2}%".format(self.text,
+                display_text = "\r{0} ({4:>{5}}/{3}): [{1}] {2}%".format(self.text,
                                                                            hashes + spaces,
                                                                            int(round(percent * 100)),
                                                                            self.end_value,
                                                                            self.current,
-                                                                           len(str(self.end_value))))
+                                                                           len(str(self.end_value)))
             else:
-                sys.stdout.write("\r{0}: [{1}] {2}%".format(self.text,
+                display_text = "\r{0}: [{1}] {2}%".format(self.text,
                                                             hashes + spaces,
-                                                            int(round(percent * 100))))
-            sys.stdout.flush()
+                                                            int(round(percent * 100)))
             if self.current == self.end_value:
                 elapsed_time = timedelta(seconds=(int(time.time()) - self.start_time))
-                sys.stdout.write(" Elapsed time: %s\n" % elapsed_time)
+                display_text += " Elapsed time: %s\n" % elapsed_time
+
+            self._print(display_text)
 
 
 def progress_bar_test(end_value, text, bar_length, count):

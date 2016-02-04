@@ -42,11 +42,11 @@ for i in range(0, 74):
     bar.update(i)
 ````
 ````
-Progress: [##############      ] 70% (52/74)
+Progress (52/74): [##############      ] 70%
 ````
 
 
-#### Info Text
+#### Info text
 You can set the informative text before the bar by setting `text`. **Default:** `"Progress"`.
 
 ````
@@ -58,6 +58,23 @@ for i in range(0, 100):
 ````
 ````
 Iterations: [##############      ] 70%
+````
+
+
+#### Status text
+You can set an informative text after the bar by passing `status_text` to `start()` and using `current_status()`.
+
+````
+bar = ProgressBar(100, text="Iterations")
+bar.start(status_text="Initializing...")
+time.sleep(2)
+for i in range(0, 100):
+	bar.current_status("Iteration %s" % i)
+    time.sleep(1)
+    bar.update(i)
+````
+````
+Iterations: [##############      ] 70% Iteration 1
 ````
 
 
