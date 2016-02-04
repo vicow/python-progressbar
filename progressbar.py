@@ -83,7 +83,7 @@ class ProgressBar:
 
         :param status_text: Status text to be displayed
         """
-        self._print(status_text)
+        self._print(" " + status_text)
 
     def update(self, new_val):
         """
